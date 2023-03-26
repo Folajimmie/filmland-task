@@ -13,19 +13,26 @@ const Hero = () => {
     axios.get(requests.POPULAR_BASE_URL).then((res) => {
       setMovies(res.data.results)
     })
-  }, [])
-  console.log(movie)
+  }, []);
+
+  const reduceString = (str, num) => {
+    if(str?.length > num) {
+      return str.slice(0, num) + '...'
+    } else{
+      return str
+    }
+  }
 
   return (
     <div className='w-full h-[37.5rem] text-black'>
       <div className='w-full h-full'>
         <div className='absolute w-full h-[37.5rem] bg-gradient-to-r from-black'></div>
         <img className='w-full h-full object-cover' src={`${IMAGE_BASE_URL}/original/${movie?.backdrop_path}`} alt={movie?.title} />
-        <div className='absolute w-[25.25rem] top-[20%] left-[5%] p-4 md:p-8'>
+        <div className='absolute w-[25.25rem] lg:top-[15%] xl:top-[20%] left-[5%] md:p-8'>
           <p className='text-headline-1 text-white'>{movie?.title}</p>
           <p className='text-title-text text-gray'>Released: {movie?.release_date}</p>
-          <p className='text-title-text text-white mt-2'>{movie?.overview}</p>
-        <DefaultButton className='w-[10.5625rem] h-[2.25rem] flex justify-center items-center gap-2 mt-4'>
+          <p className='text-title-text text-white mt-2'>{reduceString(movie?.overview, 150)}</p>
+        <DefaultButton className='w-[10rem] h-[2.25rem] flex justify-center items-center gap-2 mt-4'>
           <div>
             <img src={Play} alt="Play_button" />
           </div>
